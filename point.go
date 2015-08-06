@@ -324,3 +324,23 @@ func (p Point) ToWKT() string {
 func (p Point) String() string {
 	return fmt.Sprintf("POINT(%g %g)", p[0], p[1])
 }
+
+// Cross product of p and q
+func (p *Point) Cross(q *Point) float64 {
+	return p[0]*q[1] - p[1]*q[0]
+}
+
+// Norm returns the norm/length of this vector
+func (p *Point) Norm() float64 {
+	return math.Sqrt(p[0]*p[0] + p[1]*p[1])
+}
+
+// Angle returns the angle in radians from the origin to p
+func (p *Point) Angle() float64 {
+	return math.Atan2(p[1], p[0])
+}
+
+// Tangent returns unit tangent from p to q
+func (p *Point) Tangent(q *Point) *Point {
+	return q.Clone().Subtract(p).Normalize()
+}

@@ -1,6 +1,7 @@
 package geo
 
 import (
+	"fmt"
 	"math"
 	"strings"
 	"testing"
@@ -398,4 +399,37 @@ func TestPointString(t *testing.T) {
 	if s := p.String(); s != answer {
 		t.Errorf("point, string expected %s, got %s", answer, s)
 	}
+}
+
+func ExamplePoint_Cross() {
+	p := NewPoint(1, 2)
+	q := NewPoint(3, 4)
+	fmt.Println(p.Cross(q))
+	// Output: -2
+}
+
+func ExamplePoint_Norm() {
+	p := Point{1, 2}
+	fmt.Println(p.Norm() == math.Sqrt(5))
+	// Output: true
+}
+
+func ExamplePoint_Angle() {
+	fmt.Println(NewPoint(1, 1).Angle() * 180 / math.Pi)
+	fmt.Println(NewPoint(-1, 1).Angle() * 180 / math.Pi)
+	fmt.Println(NewPoint(-1, -1).Angle() * 180 / math.Pi)
+	fmt.Println(NewPoint(1, -1).Angle() * 180 / math.Pi)
+	// Output:
+	// 45
+	// 135
+	// -135
+	// -45
+}
+
+func ExamplePoint_Tangent() {
+	p := NewPoint(1, 1)
+	q := NewPoint(3, 3)
+	fmt.Println(p.Tangent(q))
+	// Output:
+	// POINT(0.7071067811865475 0.7071067811865475)
 }
